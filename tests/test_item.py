@@ -6,6 +6,7 @@ import pytest
 def item():
     return Item("Смартфон", 1000.0, 20)
 
+
 def test_init(item):
     assert item.price == 1000.0
     assert item.name == "Смартфон"
@@ -29,10 +30,20 @@ def test_apply_discount(item):
     item.apply_discount()
     assert item.price == 150.0
 
+
 def test_string_to_number(item):
     assert item.string_to_number("5.0") == 5
     assert item.string_to_number("6.5") == 6
 
+
 def test_instantiate_from_csv(item):
     item.instantiate_from_csv("src/items.csv")
     assert len(Item.all) == 5
+
+
+def test_repr(item):
+    assert item.__repr__() == "Item('Смартфон', 1000.0, 20)"
+
+
+def test_str(item):
+    assert item.__str__() == "Смартфон"
