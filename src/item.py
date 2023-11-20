@@ -6,6 +6,8 @@ class Item:
     """
     pay_rate = 1.0
     all = []
+
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
@@ -19,9 +21,24 @@ class Item:
         self.all.append(self)
 
 
+    def __repr__(self):
+        """
+        Вывод информации о классе Item.
+        """
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+
+    def __str__(self):
+        """
+        Информация о классе. Вывод значения поля self.name.
+        """
+        return self.__name
+
+
     @property
     def name(self):
-        return self.__name
+         return self.__name
+
 
     @name.setter
     def name(self, name):
@@ -30,9 +47,11 @@ class Item:
         else:
             self.__name = name[:10]
 
+
     @staticmethod
     def string_to_number(number):
         return int(float(number))
+
 
     @classmethod
     def instantiate_from_csv(cls, file_path):
@@ -41,7 +60,8 @@ class Item:
         with open(file_path, "r", encoding='windows-1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                Item(row['name'], float(row['price']), int(row['quantity']))
+                cls(row['name'], float(row['price']), int(row['quantity']))
+
 
     def calculate_total_price(self) -> float:
         """
@@ -49,6 +69,8 @@ class Item:
         :return: Общая стоимость товара.
         """
         return self.price * self.quantity
+
+
     def apply_discount(self) -> None:
         """
         Применяет установленную скидку для конкретного товара.
